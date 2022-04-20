@@ -9,11 +9,11 @@
 
 
 poly.dlm.tests <- function(coef , y.t , design.z , tr.matrix , n , q , print = TRUE ){
-  z <- data.frame(array(1,(n-q)) , design.z )
+  z <- data.frame(array(1,(n)) , design.z )
   z <- as.matrix(z) # Create design matrix
   H <- z%*%solve(t(z)%*%z)%*%t(z) # Hat martix
-  I <- diag(n-q)
-  MSE <- (t(y.t)%*%(I-H)%*%y.t)/(n - q - length(coef)) 
+  I <- diag(n)
+  MSE <- (t(y.t)%*%(I-H)%*%y.t)/(n - length(coef)) 
   
   C <- MSE[1,1]*solve(t(z)%*%z) 
   # Covariance matrix of parameter estimates for Almon DLM
@@ -25,7 +25,7 @@ poly.dlm.tests <- function(coef , y.t , design.z , tr.matrix , n , q , print = T
   
   stDev.beta <- sqrt(var.beta)
   t.value <- beta/stDev.beta
-  t.pr <- 2 * pt(abs(beta/stDev.beta), n-q-q,lower.tail = FALSE)
+  t.pr <- 2 * pt(abs(beta/stDev.beta), n-q,lower.tail = FALSE)
   
   beta.estimates <- data.frame(beta, stDev.beta, t.value, t.pr)
   colnames(beta.estimates) <- c("Estimate", "Std. Error", "t value", "P(>|t|)")
