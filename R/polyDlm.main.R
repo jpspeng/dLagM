@@ -3,7 +3,6 @@ polyDlm.main <- function(x , y , q , k , show.beta = TRUE ){
   design  <- dlm(x = x , y = y , q = q )$designMatrix
   design <- design[!is.na(design$y),]
   n <- nrow(design)
-  print(design)
   tr.matrix <- array(0, dim = c((q+1),(k+1)))
   design.z <- array(0,dim=c(length((q+1):n),(k+1)))
   design.z.colnames <- array(NA, (k+1))
